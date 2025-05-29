@@ -72,7 +72,6 @@ function createWebsiteCard(website, index) {
   card.className = "website-card";
   card.dataset.index = index;
   card.dataset.category = website.category || "Other";
-  // Do NOT set card.setAttribute("draggable", "true");
 
   // Optimized favicon loading
   const urlObj = (() => {
@@ -112,24 +111,6 @@ function createWebsiteCard(website, index) {
   nameDiv.className = "website-card-name";
   nameDiv.textContent = website.name;
   contentDiv.appendChild(nameDiv);
-
-  // Add a drag handle for category transfer
-  const dragHandle = document.createElement("span");
-  dragHandle.className = "website-card-draghandle";
-  dragHandle.title = "Drag to category to move";
-  dragHandle.innerHTML = '<i class="ri-share-forward-line"></i>';
-  dragHandle.setAttribute("draggable", "true");
-  dragHandle.style.cursor = "grab";
-  dragHandle.addEventListener("dragstart", (e) => {
-    e.dataTransfer.setData("text/plain", website.url);
-    e.dataTransfer.effectAllowed = "move";
-    dragHandle.classList.add("dragging-website");
-    // Optionally, visually indicate dragging
-  });
-  dragHandle.addEventListener("dragend", () => {
-    dragHandle.classList.remove("dragging-website");
-  });
-  contentDiv.appendChild(dragHandle);
 
   const actionsDiv = document.createElement("div");
   actionsDiv.className = "website-card-actions";
@@ -250,7 +231,7 @@ function renderCategories() {
     const btn = document.createElement("button");
     btn.className = "nav-item" + (cat === currentCategory ? " active" : "");
     btn.setAttribute("data-category", cat);
-    btn.setAttribute("draggable", "false");
+    btn.setAttribute("draggable", "false"); // Let Sortable handle drag
     // Label
     const labelSpan = document.createElement("span");
     labelSpan.className = "category-label";
@@ -325,35 +306,6 @@ function renderCategories() {
       renderCategories();
       initializeGrid();
     });
-
-    // Drag and drop handlers for website transfer (now only from drag handle)
-    btn.addEventListener("dragover", (e) => {
-      e.preventDefault();
-      btn.classList.add("category-dragover");
-    });
-    btn.addEventListener("dragleave", () => {
-      btn.classList.remove("category-dragover");
-    });
-    btn.addEventListener("drop", (e) => {
-      e.preventDefault();
-      btn.classList.remove("category-dragover");
-      if (!e.dataTransfer.types.includes("text/plain")) return;
-      const websiteUrl = e.dataTransfer.getData("text/plain");
-      if (!websiteUrl) return;
-      // Only allow drop if a drag handle is being dragged
-      const draggingHandle = document.querySelector('.website-card-draghandle.dragging-website');
-      if (!draggingHandle) return;
-      const websiteObj = websites.find(w => w.url && w.url.toLowerCase() === websiteUrl.toLowerCase());
-      if (websiteObj && websiteObj.category !== cat) {
-        websiteObj.category = cat;
-        saveWebsites();
-        currentCategory = cat;
-        currentCategoryTitle.textContent = cat;
-        renderCategories();
-        initializeGrid();
-      }
-    });
-
     categoryContainer.appendChild(btn);
   });
 }

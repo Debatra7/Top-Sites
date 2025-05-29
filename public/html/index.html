@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="../css/style.css" />
+    <title>Web Hub</title>
+  </head>
+  <body>
+    <header>
+      <nav>
+        <div class="nav-left" id="category-container">
+          <!-- Category buttons will be rendered here -->
+        </div>
+        <div class="nav-right">
+          <button id="add-category-btn" class="nav-item" title="Add Category">
+            <i class="ri-folder-add-line"></i>
+          </button>
+          <button id="settings-btn" class="nav-item" title="Settings">
+            <i class="ri-settings-3-line"></i>
+          </button>
+        </div>
+      </nav>
+      <div class="header-content">
+        <h1 id="current-category-title">Home</h1>
+        <button id="add-website-btn" class="primary-btn" title="Add Website">
+          <i class="ri-add-line"></i>
+          Add Website
+        </button>
+      </div>
+    </header>
+
+    <main>
+      <div id="website-grid"></div>
+    </main>
+
+    <!-- Add/Edit Website Modal -->
+    <div id="add-website-modal" class="modal">
+      <div class="modal-content">
+        <h2>Add New Website</h2>
+        <form id="add-website-form">
+          <div class="form-group">
+            <label for="website-name">Website Name (max 15 characters)</label>
+            <input
+              type="text"
+              id="website-name"
+              maxlength="15"
+              required
+              placeholder="e.g., Google, YouTube"
+            />
+          </div>
+          <div class="form-group">
+            <label for="website-url">Website URL</label>
+            <input
+              type="url"
+              id="website-url"
+              required
+              placeholder="https://example.com"
+            />
+          </div>
+          <div class="modal-actions">
+            <button type="button" class="secondary-btn" id="cancel-add">
+              <i class="ri-close-line"></i>
+              Cancel
+            </button>
+            <button type="submit" class="primary-btn">
+              <i class="ri-add-line"></i>
+              Add
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- Add Category Modal -->
+    <div id="add-category-modal" class="modal">
+      <div class="modal-content">
+        <h2>Add New Category</h2>
+        <form id="add-category-form">
+          <div class="form-group">
+            <label for="category-name">Category Name</label>
+            <input
+              type="text"
+              id="category-name"
+              maxlength="20"
+              required
+              placeholder="e.g., Finance, News"
+            />
+          </div>
+          <div class="modal-actions">
+            <button
+              type="button"
+              class="secondary-btn"
+              id="cancel-add-category"
+            >
+              <i class="ri-close-line"></i>
+              Cancel
+            </button>
+            <button type="submit" class="primary-btn">
+              <i class="ri-add-line"></i>
+              Add
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- Settings Modal -->
+    <div id="settings-modal" class="modal">
+      <div class="modal-content">
+        <h2>Settings</h2>
+        <div class="settings-section">
+          <h3>Data Management</h3>
+          <button id="export-data" class="secondary-btn">
+            <i class="ri-download-line"></i>
+            Export Data
+          </button>
+          <button id="import-data" class="secondary-btn">
+            <i class="ri-upload-line"></i>
+            Import Data
+          </button>
+        </div>
+        <div class="settings-section">
+          <h3>App Settings</h3>
+          <button id="clear-cache" class="secondary-btn">
+            <i class="ri-refresh-line"></i>
+            Clear Favicon Cache
+          </button>
+        </div>
+        <div class="modal-actions">
+          <button class="secondary-btn" id="close-settings">Close</button>
+        </div>
+      </div>
+    </div>
+  </body>
+  <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.0/Sortable.min.js"></script>
+  <script src="../js/script.js"></script>
+</html>
